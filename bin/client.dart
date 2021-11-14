@@ -1,7 +1,13 @@
 import 'dart:io';
 import 'dart:math';
-import 'package:grpc/grpc.dart';
+
 import 'package:dart_grpc_server/dart_grpc_server.dart';
+import 'package:grpc/grpc.dart';
+
+void main() {
+  var client = Client();
+  client.main();
+}
 
 class Client {
   ClientChannel? channel;
@@ -10,10 +16,15 @@ class Client {
   bool executionInProgress = true;
 
   Future<void> main() async {
-    channel = ClientChannel('localhost',
-        port: 50000,
-        options: // No credentials in this example
-            const ChannelOptions(credentials: ChannelCredentials.insecure()));
+    final trustedRoot = File('ca-cert.pem').readAsBytesSync();
+    final channelCredentials =
+        ChannelCredentials.secure(certificates: trustedRoot);
+    final channelOptions = ChannelOptions(credentials: channelCredentials);
+    channel = ClientChannel(
+      'davidcomp',
+      port: 50000,
+      options: channelOptions,
+    );
 
     stub = GroceriesServiceClient(channel!,
         options: CallOptions(timeout: Duration(seconds: 30)));
@@ -225,9 +236,4 @@ class Client {
   }
 
   int _randomId() => Random(1000).nextInt(9999);
-}
-
-void main() {
-  var client = Client();
-  client.main();
 }
