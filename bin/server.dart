@@ -1,13 +1,23 @@
+import 'dart:io';
+
 import 'package:dart_grpc_server/dart_grpc_server.dart';
 import 'package:grpc/grpc.dart';
 
 Future<void> main(List<String> args) async {
+  final serverPrivateKey = File('server-key.pem').readAsBytesSync();
+  final serverCertificate = File('server-cert.pem').readAsBytesSync();
   final server = Server(
     [GroceriesService()],
     const <Interceptor>[],
     CodecRegistry(codecs: const [GzipCodec(), IdentityCodec()]),
   );
-  await server.serve(port: 50000);
+  await server.serve(
+    port: 50000,
+    security: ServerTlsCredentials(
+      certificate: serverCertificate,
+      privateKey: serverPrivateKey,
+    ),
+  );
   print('✅ Server listening on port ${server.port}...');
 }
 
