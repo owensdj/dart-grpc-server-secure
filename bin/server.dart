@@ -12,7 +12,7 @@ Future<void> main(List<String> args) async {
     CodecRegistry(codecs: const [GzipCodec(), IdentityCodec()]),
   );
   await server.serve(
-    port: 50000,
+//    port: 50000,
     security: ServerTlsCredentials(
       certificate: serverCertificate,
       privateKey: serverPrivateKey,

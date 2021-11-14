@@ -22,7 +22,7 @@ class Client {
     final channelOptions = ChannelOptions(credentials: channelCredentials);
     channel = ClientChannel(
       'davidcomp',
-      port: 50000,
+//      port: 50000,
       options: channelOptions,
     );
 
