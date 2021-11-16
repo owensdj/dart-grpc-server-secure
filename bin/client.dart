@@ -15,6 +15,7 @@ class Client {
   GroceriesServiceClient? stub;
   var response;
   bool executionInProgress = true;
+  bool authenticated = false;
   String jwt = '';
 
   Future<void> main() async {
@@ -225,9 +226,11 @@ class Client {
             var response = await stub!.authenticate(userLogin);
             if (response.authenticated) {
               jwt = response.jwtData;
+              authenticated = true;
               print('Logged into the server.');
             } else {
               jwt = '';
+              authenticated = false;
               print('User name or password incorrect.');
             }
             break;
