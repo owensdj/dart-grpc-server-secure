@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:dbcrypt/dbcrypt.dart';
 import 'package:dart_grpc_server/dart_grpc_server.dart';
 import 'package:grpc/grpc.dart';
 
@@ -44,6 +45,7 @@ class Client {
         print('👉 9: Get category');
         print('👉 10: Delete category \n');
         print('👉 11: Get all products of given category');
+        print('👉 12: Login');
 
         var option = int.parse(stdin.readLineSync()!);
 
@@ -207,6 +209,14 @@ class Client {
             } else {
               print('🔴 category $name not found');
             }
+
+            break;
+          case 12:
+            print('Enter your user name:');
+            var userName = stdin.readLineSync()!;
+            print('Enter your password:');
+            var password = stdin.readLineSync()!;
+            var passwordHash = DBCrypt().hashpw(password, DBCrypt().gensalt());
 
             break;
           default:

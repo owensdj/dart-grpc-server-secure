@@ -17,7 +17,8 @@ service GroceriesService {
     rpc deleteCategory (Category) returns (Empty);
 
     rpc getItemsByCategory (Category) returns (AllItemsOfCategory);
-
+    
+    rpc authenticate (UserLogin) returns (AuthResponse);
 }
 
 message Empty {}
@@ -46,3 +47,12 @@ message AllItemsOfCategory {
     repeated Item items = 1;
 }
 
+message UserLogin {
+    string userName = 1;
+    string hashedPassword = 2;
+}
+
+message AuthResponse {
+    bool authenticated = 1;
+    string JwtData = 2;
+}
