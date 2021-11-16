@@ -69,3 +69,25 @@ const AllItemsOfCategory$json = const {
 
 /// Descriptor for `AllItemsOfCategory`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List allItemsOfCategoryDescriptor = $convert.base64Decode('ChJBbGxJdGVtc09mQ2F0ZWdvcnkSHgoKY2F0ZWdvcnlJZBgDIAEoBVIKY2F0ZWdvcnlJZBIbCgVpdGVtcxgBIAMoCzIFLkl0ZW1SBWl0ZW1z');
+@$core.Deprecated('Use userLoginDescriptor instead')
+const UserLogin$json = const {
+  '1': 'UserLogin',
+  '2': const [
+    const {'1': 'userName', '3': 1, '4': 1, '5': 9, '10': 'userName'},
+    const {'1': 'hashedPassword', '3': 2, '4': 1, '5': 9, '10': 'hashedPassword'},
+  ],
+};
+
+/// Descriptor for `UserLogin`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List userLoginDescriptor = $convert.base64Decode('CglVc2VyTG9naW4SGgoIdXNlck5hbWUYASABKAlSCHVzZXJOYW1lEiYKDmhhc2hlZFBhc3N3b3JkGAIgASgJUg5oYXNoZWRQYXNzd29yZA==');
+@$core.Deprecated('Use authResponseDescriptor instead')
+const AuthResponse$json = const {
+  '1': 'AuthResponse',
+  '2': const [
+    const {'1': 'authenticated', '3': 1, '4': 1, '5': 8, '10': 'authenticated'},
+    const {'1': 'JwtData', '3': 2, '4': 1, '5': 9, '10': 'JwtData'},
+  ],
+};
+
+/// Descriptor for `AuthResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List authResponseDescriptor = $convert.base64Decode('CgxBdXRoUmVzcG9uc2USJAoNYXV0aGVudGljYXRlZBgBIAEoCFINYXV0aGVudGljYXRlZBIYCgdKd3REYXRhGAIgASgJUgdKd3REYXRh');

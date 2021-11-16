@@ -311,3 +311,125 @@ class AllItemsOfCategory extends $pb.GeneratedMessage {
   void clearCategoryId() => clearField(3);
 }
 
+class UserLogin extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UserLogin', createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userName', protoName: 'userName')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'hashedPassword', protoName: 'hashedPassword')
+    ..hasRequiredFields = false
+  ;
+
+  UserLogin._() : super();
+  factory UserLogin({
+    $core.String? userName,
+    $core.String? hashedPassword,
+  }) {
+    final _result = create();
+    if (userName != null) {
+      _result.userName = userName;
+    }
+    if (hashedPassword != null) {
+      _result.hashedPassword = hashedPassword;
+    }
+    return _result;
+  }
+  factory UserLogin.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UserLogin.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  UserLogin clone() => UserLogin()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  UserLogin copyWith(void Function(UserLogin) updates) => super.copyWith((message) => updates(message as UserLogin)) as UserLogin; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static UserLogin create() => UserLogin._();
+  UserLogin createEmptyInstance() => create();
+  static $pb.PbList<UserLogin> createRepeated() => $pb.PbList<UserLogin>();
+  @$core.pragma('dart2js:noInline')
+  static UserLogin getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UserLogin>(create);
+  static UserLogin? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get userName => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set userName($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasUserName() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearUserName() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get hashedPassword => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set hashedPassword($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasHashedPassword() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearHashedPassword() => clearField(2);
+}
+
+class AuthResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'AuthResponse', createEmptyInstance: create)
+    ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'authenticated')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'JwtData', protoName: 'JwtData')
+    ..hasRequiredFields = false
+  ;
+
+  AuthResponse._() : super();
+  factory AuthResponse({
+    $core.bool? authenticated,
+    $core.String? jwtData,
+  }) {
+    final _result = create();
+    if (authenticated != null) {
+      _result.authenticated = authenticated;
+    }
+    if (jwtData != null) {
+      _result.jwtData = jwtData;
+    }
+    return _result;
+  }
+  factory AuthResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory AuthResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  AuthResponse clone() => AuthResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  AuthResponse copyWith(void Function(AuthResponse) updates) => super.copyWith((message) => updates(message as AuthResponse)) as AuthResponse; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static AuthResponse create() => AuthResponse._();
+  AuthResponse createEmptyInstance() => create();
+  static $pb.PbList<AuthResponse> createRepeated() => $pb.PbList<AuthResponse>();
+  @$core.pragma('dart2js:noInline')
+  static AuthResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AuthResponse>(create);
+  static AuthResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get authenticated => $_getBF(0);
+  @$pb.TagNumber(1)
+  set authenticated($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasAuthenticated() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearAuthenticated() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get jwtData => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set jwtData($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasJwtData() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearJwtData() => clearField(2);
+}
+

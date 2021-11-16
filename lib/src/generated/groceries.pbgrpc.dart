@@ -60,6 +60,11 @@ class GroceriesServiceClient extends $grpc.Client {
           ($0.Category value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $0.AllItemsOfCategory.fromBuffer(value));
+  static final _$authenticate =
+      $grpc.ClientMethod<$0.UserLogin, $0.AuthResponse>(
+          '/GroceriesService/authenticate',
+          ($0.UserLogin value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $0.AuthResponse.fromBuffer(value));
 
   GroceriesServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -120,6 +125,11 @@ class GroceriesServiceClient extends $grpc.Client {
       $0.Category request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getItemsByCategory, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.AuthResponse> authenticate($0.UserLogin request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$authenticate, request, options: options);
   }
 }
 
@@ -204,6 +214,13 @@ abstract class GroceriesServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.Category.fromBuffer(value),
         ($0.AllItemsOfCategory value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.UserLogin, $0.AuthResponse>(
+        'authenticate',
+        authenticate_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.UserLogin.fromBuffer(value),
+        ($0.AuthResponse value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.Item> createItem_Pre(
@@ -261,6 +278,11 @@ abstract class GroceriesServiceBase extends $grpc.Service {
     return getItemsByCategory(call, await request);
   }
 
+  $async.Future<$0.AuthResponse> authenticate_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.UserLogin> request) async {
+    return authenticate(call, await request);
+  }
+
   $async.Future<$0.Item> createItem($grpc.ServiceCall call, $0.Item request);
   $async.Future<$0.Category> createCategory(
       $grpc.ServiceCall call, $0.Category request);
@@ -278,4 +300,6 @@ abstract class GroceriesServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.Category request);
   $async.Future<$0.AllItemsOfCategory> getItemsByCategory(
       $grpc.ServiceCall call, $0.Category request);
+  $async.Future<$0.AuthResponse> authenticate(
+      $grpc.ServiceCall call, $0.UserLogin request);
 }

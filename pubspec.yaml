@@ -9,6 +9,7 @@ environment:
 dependencies:
   dbcrypt:
   grpc:
+  jaguar_jwt:
   protobuf:
 
 

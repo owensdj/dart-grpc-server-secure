@@ -15,6 +15,7 @@ class Client {
   GroceriesServiceClient? stub;
   var response;
   bool executionInProgress = true;
+  String jwt = '';
 
   Future<void> main() async {
     final trustedRoot = File('ca-cert.pem').readAsBytesSync();
@@ -216,8 +217,19 @@ class Client {
             var userName = stdin.readLineSync()!;
             print('Enter your password:');
             var password = stdin.readLineSync()!;
-            var passwordHash = DBCrypt().hashpw(password, DBCrypt().gensalt());
-
+            var hashedPassword =
+                DBCrypt().hashpw(password, DBCrypt().gensalt());
+            var userLogin = UserLogin()
+              ..userName = userName
+              ..hashedPassword = hashedPassword;
+            var response = await stub!.authenticate(userLogin);
+            if (response.authenticated) {
+              jwt = response.jwtData;
+              print('Logged into the server.');
+            } else {
+              jwt = '';
+              print('User name or password incorrect.');
+            }
             break;
           default:
             print('invalid option 🥲');
