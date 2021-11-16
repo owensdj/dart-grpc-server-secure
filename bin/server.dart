@@ -4,11 +4,18 @@ import 'package:dart_grpc_server/dart_grpc_server.dart';
 import 'package:grpc/grpc.dart';
 
 Future<void> main(List<String> args) async {
+  GrpcError? authInterceptor(ServiceCall call, ServiceMethod method) {
+    print(call.clientMetadata);
+    return null;
+  }
+
   final serverPrivateKey = File('server-key.pem').readAsBytesSync();
   final serverCertificate = File('server-cert.pem').readAsBytesSync();
   final server = Server(
     [GroceriesService()],
-    const <Interceptor>[],
+    <Interceptor>[
+      authInterceptor,
+    ],
     CodecRegistry(codecs: const [GzipCodec(), IdentityCodec()]),
   );
   await server.serve(
