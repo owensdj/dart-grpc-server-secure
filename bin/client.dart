@@ -10,6 +10,25 @@ void main() {
   client.main();
 }
 
+class AuthInterceptor implements ClientInterceptor {
+  @override
+  ResponseStream<R> interceptStreaming<Q, R>(
+      ClientMethod<Q, R> method,
+      Stream<Q> requests,
+      CallOptions options,
+      ClientStreamingInvoker<Q, R> invoker) {
+    // TODO: implement interceptStreaming
+    throw UnimplementedError();
+  }
+
+  @override
+  ResponseFuture<R> interceptUnary<Q, R>(ClientMethod<Q, R> method, Q request,
+      CallOptions options, ClientUnaryInvoker<Q, R> invoker) {
+    // TODO: implement interceptUnary
+    throw UnimplementedError();
+  }
+}
+
 class Client {
   ClientChannel? channel;
   GroceriesServiceClient? stub;
@@ -29,8 +48,13 @@ class Client {
       options: channelOptions,
     );
 
-    stub = GroceriesServiceClient(channel!,
-        options: CallOptions(timeout: Duration(seconds: 30)));
+    stub = GroceriesServiceClient(
+      channel!,
+      options: CallOptions(
+        timeout: Duration(seconds: 30),
+      ),
+      interceptors: <ClientInterceptor>[AuthInterceptor()],
+    );
 
     while (executionInProgress) {
       try {
@@ -220,6 +244,7 @@ class Client {
             var password = stdin.readLineSync()!;
             var hashedPassword =
                 DBCrypt().hashpw(password, DBCrypt().gensalt());
+            print('Hashed Password:$hashedPassword');
             var userLogin = UserLogin()
               ..userName = userName
               ..hashedPassword = hashedPassword;
