@@ -6,7 +6,28 @@ import 'package:grpc/grpc.dart';
 
 Future<void> main(List<String> args) async {
   GrpcError? authInterceptor(ServiceCall call, ServiceMethod method) {
-    return null;
+    if (call.clientMetadata?[':path'] == null) {
+      return GrpcError.unauthenticated();
+    }
+    if (call.clientMetadata![':path']!.contains('authenticate')) {
+      try {
+        final jwt = call.clientMetadata!['jwt'];
+        if (jwt == null) {
+          return GrpcError.unauthenticated();
+        }
+        final claimSet = verifyJwtHS256Signature(
+          jwt,
+          GroceriesService.secretJwtKey,
+        );
+        if (claimSet.subject?.isEmpty ?? true) {
+          return GrpcError.unauthenticated();
+        }
+      } on JwtException {
+        return GrpcError.unauthenticated();
+      }
+    }
+
+    return null; // authenticated
   }
 
   final serverPrivateKey = File('server-key.pem').readAsBytesSync();

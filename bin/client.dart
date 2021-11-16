@@ -24,8 +24,16 @@ class AuthInterceptor implements ClientInterceptor {
   @override
   ResponseFuture<R> interceptUnary<Q, R>(ClientMethod<Q, R> method, Q request,
       CallOptions options, ClientUnaryInvoker<Q, R> invoker) {
-    // TODO: implement interceptUnary
-    throw UnimplementedError();
+    var newOptions = options.mergedWith(
+      CallOptions(metadata: <String, String>{
+        'jwt': Client.jwt,
+      }),
+    );
+    return invoker(
+      method,
+      request,
+      newOptions,
+    );
   }
 }
 
@@ -35,7 +43,7 @@ class Client {
   var response;
   bool executionInProgress = true;
   bool authenticated = false;
-  String jwt = '';
+  static String jwt = '';
 
   Future<void> main() async {
     final trustedRoot = File('ca-cert.pem').readAsBytesSync();
@@ -244,7 +252,6 @@ class Client {
             var password = stdin.readLineSync()!;
             var hashedPassword =
                 DBCrypt().hashpw(password, DBCrypt().gensalt());
-            print('Hashed Password:$hashedPassword');
             var userLogin = UserLogin()
               ..userName = userName
               ..hashedPassword = hashedPassword;
