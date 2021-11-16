@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:dart_grpc_server/dart_grpc_server.dart';
-import 'package:jaguar_jwt/jaguar_jwt.dart';
 import 'package:grpc/grpc.dart';
+import 'package:jaguar_jwt/jaguar_jwt.dart';
 
 Future<void> main(List<String> args) async {
   GrpcError? authInterceptor(ServiceCall call, ServiceMethod method) {
@@ -53,6 +53,17 @@ class GroceriesService extends GroceriesServiceBase {
   static const secretJwtKey = 'kjd4r7Ntka@mqwdf2!db';
 
   @override
+  Future<AuthResponse> authenticate(
+      ServiceCall call, UserLogin userLogin) async {
+    final claimSet = JwtClaim(subject: userLogin.userName);
+    final jwt = issueJwtHS256(claimSet, secretJwtKey);
+    return AuthResponse(
+      authenticated: true,
+      jwtData: jwt,
+    );
+  }
+
+  @override
   Future<Category> createCategory(ServiceCall call, Category request) async =>
       categoriesServices.createCategory(request)!;
 
@@ -98,15 +109,4 @@ class GroceriesService extends GroceriesServiceBase {
       AllItemsOfCategory(
           items: itemsServices.getItemsByCategory(request.id)!,
           categoryId: request.id);
-
-  @override
-  Future<AuthResponse> authenticate(
-      ServiceCall call, UserLogin userLogin) async {
-    final claimSet = JwtClaim(subject: userLogin.userName);
-    final jwt = issueJwtHS256(claimSet, secretJwtKey);
-    return AuthResponse(
-      authenticated: true,
-      jwtData: jwt,
-    );
-  }
 }
