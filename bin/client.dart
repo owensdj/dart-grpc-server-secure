@@ -17,8 +17,16 @@ class AuthInterceptor implements ClientInterceptor {
       Stream<Q> requests,
       CallOptions options,
       ClientStreamingInvoker<Q, R> invoker) {
-    // TODO: implement interceptStreaming
-    throw UnimplementedError();
+    var newOptions = options.mergedWith(
+      CallOptions(metadata: <String, String>{
+        'jwt': Client.jwt,
+      }),
+    );
+    return invoker(
+      method,
+      requests,
+      newOptions,
+    );
   }
 
   @override

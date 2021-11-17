@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:dart_grpc_server/dart_grpc_server.dart';
@@ -5,11 +6,11 @@ import 'package:grpc/grpc.dart';
 import 'package:jaguar_jwt/jaguar_jwt.dart';
 
 Future<void> main(List<String> args) async {
-  GrpcError? authInterceptor(ServiceCall call, ServiceMethod method) {
+  FutureOr<GrpcError?> authInterceptor(ServiceCall call, ServiceMethod method) {
     if (call.clientMetadata?[':path'] == null) {
       return GrpcError.unauthenticated();
     }
-    if (call.clientMetadata![':path']!.contains('authenticate')) {
+    if (!call.clientMetadata![':path']!.contains('authenticate')) {
       try {
         final jwt = call.clientMetadata!['jwt'];
         if (jwt == null) {
@@ -55,6 +56,7 @@ class GroceriesService extends GroceriesServiceBase {
   @override
   Future<AuthResponse> authenticate(
       ServiceCall call, UserLogin userLogin) async {
+    // Would verify the user name and hash pw in DB in production
     final claimSet = JwtClaim(subject: userLogin.userName);
     final jwt = issueJwtHS256(claimSet, secretJwtKey);
     return AuthResponse(
