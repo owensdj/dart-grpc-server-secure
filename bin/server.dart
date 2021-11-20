@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dart_grpc_server/dart_grpc_server.dart';
@@ -29,7 +30,7 @@ Future<void> main(List<String> args) async {
       return GrpcError.unauthenticated();
     }
 
-    return null; // authenticated
+    return null; // authenticated by signed JWT
   }
 
   final serverPrivateKey = File('server-key.pem').readAsBytesSync();
@@ -59,11 +60,18 @@ class GroceriesService extends GroceriesServiceBase {
       ServiceCall call, UserLogin userLogin) async {
     // Would verify the user name and hash pw in DB in production
     final claimSet = JwtClaim(subject: userLogin.userName);
-    final jwt = issueJwtHS256(claimSet, secretJwtKey);
-    return AuthResponse(
-      authenticated: true,
-      jwtData: jwt,
-    );
+    try {
+      final jwt = issueJwtHS256(claimSet, secretJwtKey);
+      return AuthResponse(
+        authenticated: true,
+        jwtData: jwt,
+      );
+    } on JsonUnsupportedObjectError {
+      return AuthResponse(
+        authenticated: false,
+        jwtData: '',
+      );
+    }
   }
 
   @override
