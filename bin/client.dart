@@ -59,7 +59,7 @@ class Client {
         ChannelCredentials.secure(certificates: trustedRoot);
     final channelOptions = ChannelOptions(credentials: channelCredentials);
     channel = ClientChannel(
-      'davidcomp',
+      'server',
 //      port: 50000,
       options: channelOptions,
     );
