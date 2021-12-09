@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:dbcrypt/dbcrypt.dart';
 import 'package:dart_grpc_server/dart_grpc_server.dart';
 import 'package:grpc/grpc.dart';
 
@@ -59,7 +58,7 @@ class Client {
         ChannelCredentials.secure(certificates: trustedRoot);
     final channelOptions = ChannelOptions(credentials: channelCredentials);
     channel = ClientChannel(
-      'server',
+      'davidcomp',
 //      port: 50000,
       options: channelOptions,
     );
@@ -258,11 +257,9 @@ class Client {
             var userName = stdin.readLineSync()!;
             print('Enter your password:');
             var password = stdin.readLineSync()!;
-            var hashedPassword =
-                DBCrypt().hashpw(password, DBCrypt().gensalt());
             var userLogin = UserLogin()
               ..userName = userName
-              ..hashedPassword = hashedPassword;
+              ..password = password;
             var response = await stub!.authenticate(userLogin);
             if (response.authenticated) {
               jwt = response.jwtData;

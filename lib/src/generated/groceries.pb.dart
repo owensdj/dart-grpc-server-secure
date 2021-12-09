@@ -42,7 +42,7 @@ class Item extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Item', createEmptyInstance: create)
     ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id', $pb.PbFieldType.O3)
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name')
-    ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'categoryId', $pb.PbFieldType.O3, protoName: 'categoryId')
+    ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'categoryId', $pb.PbFieldType.O3)
     ..hasRequiredFields = false
   ;
 
@@ -259,7 +259,7 @@ class Categories extends $pb.GeneratedMessage {
 class AllItemsOfCategory extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'AllItemsOfCategory', createEmptyInstance: create)
     ..pc<Item>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'items', $pb.PbFieldType.PM, subBuilder: Item.create)
-    ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'categoryId', $pb.PbFieldType.O3, protoName: 'categoryId')
+    ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'categoryId', $pb.PbFieldType.O3)
     ..hasRequiredFields = false
   ;
 
@@ -313,22 +313,22 @@ class AllItemsOfCategory extends $pb.GeneratedMessage {
 
 class UserLogin extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UserLogin', createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userName', protoName: 'userName')
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'hashedPassword', protoName: 'hashedPassword')
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userName')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'password')
     ..hasRequiredFields = false
   ;
 
   UserLogin._() : super();
   factory UserLogin({
     $core.String? userName,
-    $core.String? hashedPassword,
+    $core.String? password,
   }) {
     final _result = create();
     if (userName != null) {
       _result.userName = userName;
     }
-    if (hashedPassword != null) {
-      _result.hashedPassword = hashedPassword;
+    if (password != null) {
+      _result.password = password;
     }
     return _result;
   }
@@ -363,19 +363,19 @@ class UserLogin extends $pb.GeneratedMessage {
   void clearUserName() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.String get hashedPassword => $_getSZ(1);
+  $core.String get password => $_getSZ(1);
   @$pb.TagNumber(2)
-  set hashedPassword($core.String v) { $_setString(1, v); }
+  set password($core.String v) { $_setString(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasHashedPassword() => $_has(1);
+  $core.bool hasPassword() => $_has(1);
   @$pb.TagNumber(2)
-  void clearHashedPassword() => clearField(2);
+  void clearPassword() => clearField(2);
 }
 
 class AuthResponse extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'AuthResponse', createEmptyInstance: create)
     ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'authenticated')
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'JwtData', protoName: 'JwtData')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'jwtData')
     ..hasRequiredFields = false
   ;
 

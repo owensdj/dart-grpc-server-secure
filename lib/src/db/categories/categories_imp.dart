@@ -1,11 +1,11 @@
 import 'package:dart_grpc_server/dart_grpc_server.dart';
-import '../data.dart';
-import 'categories_int.dart';
+// import '../data.dart';
+// import 'categories_int.dart';
 
-class CategoriesServices implements ICategoriesServices{
+class CategoriesServices implements ICategoriesServices {
   @override
   Category createCategory(Category category) {
-        categories.add({'id': category.id, 'name': category.name});
+    categories.add({'id': category.id, 'name': category.name});
     return category;
   }
 
@@ -17,14 +17,15 @@ class CategoriesServices implements ICategoriesServices{
 
   @override
   Category editCategory(Category category) {
-    try{
- var categoryIndex = categories.indexWhere((element) => element['id'] == category.id);
-        categories[categoryIndex]['name'] = category.name;
-    }catch(e){
+    try {
+      var categoryIndex =
+          categories.indexWhere((element) => element['id'] == category.id);
+      categories[categoryIndex]['name'] = category.name;
+    } catch (e) {
       print('🔴 ERROR:: $e');
     }
-       
-        return category;
+
+    return category;
   }
 
   @override
@@ -36,7 +37,7 @@ class CategoriesServices implements ICategoriesServices{
 
   @override
   Category? getCategoryByName(String name) {
-        var category = Category();
+    var category = Category();
     var result =
         categories.where((element) => element['name'] == name).toList();
     if (result.isNotEmpty) {
@@ -47,9 +48,8 @@ class CategoriesServices implements ICategoriesServices{
 
   @override
   Category? getCategoryById(int id) {
-           var category = Category();
-    var result =
-        categories.where((element) => element['id'] == id).toList();
+    var category = Category();
+    var result = categories.where((element) => element['id'] == id).toList();
     if (result.isNotEmpty) {
       category = helper.getCategoryFromMap(result.first);
     }
